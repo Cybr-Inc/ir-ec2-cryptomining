@@ -16,4 +16,5 @@
 .venv/*
 .cache
 .cache/*
-output/*
+/scripts/output/*
+/scripts/output/
