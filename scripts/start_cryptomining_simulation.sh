@@ -60,7 +60,7 @@ export SUBNETID=$(aws ec2 describe-subnets --filters "Name=tag:Application,Value
 
 aws ec2 describe-images --owners amazon --filters "Name=name,Values=amzn2-ami-hvm-2.0.*" "Name=state,Values=available" --query "reverse(sort_by(Images, &Name))[:1].ImageId" --region us-east-1 --profile ${profile} > ./output/AMI1.json
 
-export AMI1=$(jq -r '.[]' AMI1.json)
+export AMI1=$(jq -r '.[]' ./output/AMI1.json)
 
 # Create instance
 ec2_output=$(aws ec2 run-instances --image-id ${AMI1} --instance-type t3.nano --count 1 --region us-east-1 --user-data file://output/userdata.txt --subnet-id ${SUBNETID} --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=mining-server}]' --profile ${profile})
@@ -77,4 +77,3 @@ echo "---"
 #echo "File Cleanup Complete"
 #echo "---"
 echo "End of Simulation Script"
-rm -- "$0"
