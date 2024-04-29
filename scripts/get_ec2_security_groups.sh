@@ -18,10 +18,10 @@ instances=$1
 region=$2
 profile=$3
 
-sgs=$(aws ec2 describe-instances --instance-ids "${instances}" --region us-east-1 --profile "${profile}" | jq -r '.Reservations[].Instances[].NetworkInterfaces[].Groups[].GroupId')
+sgs=$(aws ec2 describe-instances --instance-ids "${instances}" --region us-east-1 --profile ${profile} | jq -r '.Reservations[].Instances[].NetworkInterfaces[].Groups[].GroupId')
 
 for sg in ${sgs[@]}; do
     echo "Security group ${sg}:"
-    echo "$(aws ec2 describe-security-groups --group-ids '${sg}' --region us-east-1 --profile '${profile}' | jq -r '.SecurityGroups[].IpPermissions')"
+    echo "$(aws ec2 describe-security-groups --group-ids ${sg} --region us-east-1 --profile ${profile} | jq -r '.SecurityGroups[]')"
     echo "-----------"
 done
