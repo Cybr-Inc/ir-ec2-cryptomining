@@ -2,6 +2,7 @@
 
 # Arguments:
 # - EC2 instance IDs: space-separated EC2 instance IDs
+# - Region: the region you launched the EC2 instance in
 # - Profile: the AWS CLI profile to use to access credentials
 
 # Description:
